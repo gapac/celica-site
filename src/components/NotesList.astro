@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import { route } from '../i18n.js';
+interface Props { lang: 'sl' | 'en' }
+const { lang } = Astro.props;
+
+const notes = (await getCollection('notes', (n) => n.id.startsWith(`${lang}/`) && !n.data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const copy = {
+  sl: { h1: 'Zapiski', lead: 'Kratki inženirski zapisi iz delavnice: kaj smo zgradili, kaj se je pokvarilo, kaj smo se naučili.', empty: 'Prvi zapis pride kmalu.' },
+  en: { h1: 'Notes', lead: 'Short engineering notes from the workshop: what we built, what broke, what we learned.', empty: 'First note coming soon.' },
+}[lang];
+---
+<h1>{copy.h1}</h1>
+<p class="lead">{copy.lead}</p>
+{notes.length === 0 && <p>{copy.empty}</p>}
+<ul class="notes">
+  {notes.map((n) => (
+    <li>
+      <time datetime={n.data.date.toISOString()}>{n.data.date.toLocaleDateString(lang === 'sl' ? 'sl-SI' : 'en-GB')}</time>
+      <a href={`${route(lang, 'notes')}/${n.id.slice(3)}`}>{n.data.title}</a>
+      <p>{n.data.description}</p>
+    </li>
+  ))}
+</ul>

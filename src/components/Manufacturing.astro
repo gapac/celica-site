@@ -1,0 +1,45 @@
+---
+import { route } from '../i18n.js';
+interface Props { lang: 'sl' | 'en' }
+const { lang } = Astro.props;
+
+const copy = {
+  sl: {
+    h1: 'Za proizvajalce strojev, integratorje in obrate',
+    lead: 'Zagon, ki se ne zamakne. Varianta, ki ne podvoji napak. Programska oprema, ki ne živi samo v glavi enega človeka.',
+    offersH: 'Kaj ponujamo',
+    offers: [
+      { h: 'Komplet za virtualni zagon', p: 'Emulacija vašega stroja in CI za eno družino strojev. Krmilno logiko preizkusite, preden pride jeklo.' },
+      { h: 'PLC koda pod nadzorom verzij', p: 'Obstoječi projekt prenesemo v git s samodejnimi testi. Konec kopiranja med variantami.' },
+      { h: 'Povezava OT in IT', p: 'OPC UA / MQTT iz strojev v vaše sisteme. Brez oblaka, če ga ne želite.' },
+      { h: 'Namenske celice', p: 'Robotska celica po meri — kupljen robot, ogrodje, vpenjala, omara in HMI iz naše mreže izdelovalcev.' },
+    ],
+    termsH: 'Kako sodelujemo',
+    terms: 'Prvi projekt za fiksno ceno in jasno določen obseg, običajno v treh tednih. Varnostne funkcije ostanejo deterministične in potrjene s strani človeka; odgovornost za CE in oceno tveganja je v ponudbi izrecno zapisana.',
+    cta: 'Zahtevajte ponudbo',
+  },
+  en: {
+    h1: 'For machine builders, integrators and plants',
+    lead: 'Commissioning that doesn’t slip. Variants that don’t multiply bugs. Software that doesn’t live in one person’s head.',
+    offersH: 'What we offer',
+    offers: [
+      { h: 'Virtual commissioning kit', p: 'Emulation of your machine plus CI for one machine family. Test the control logic before the steel arrives.' },
+      { h: 'PLC code under version control', p: 'We bring an existing project into git with automated tests. No more copy-paste between variants.' },
+      { h: 'OT/IT data integration', p: 'OPC UA / MQTT from machines into your systems. No cloud unless you want one.' },
+      { h: 'Special-purpose cells', p: 'A custom robot cell — bought arm, frame, fixtures, cabinet and HMI from our builder network.' },
+    ],
+    termsH: 'How we work together',
+    terms: 'First projects are fixed-price with a defined scope, typically three weeks. Safety functions stay deterministic and human-validated; CE and risk-assessment responsibility is written into every offer.',
+    cta: 'Request an offer',
+  },
+}[lang];
+---
+<h1>{copy.h1}</h1>
+<p class="lead">{copy.lead}</p>
+<h2>{copy.offersH}</h2>
+<div class="doors">
+  {copy.offers.map((o) => (<div class="door"><h3>{o.h}</h3><p>{o.p}</p></div>))}
+</div>
+<h2>{copy.termsH}</h2>
+<p>{copy.terms}</p>
+<a class="cta" href={route(lang, 'contact')}>{copy.cta}</a>

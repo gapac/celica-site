@@ -1,0 +1,39 @@
+---
+import { route } from '../i18n.js';
+interface Props { lang: 'sl' | 'en' }
+const { lang } = Astro.props;
+
+// Honest by design: the lab product is a hypothesis under validation
+// (NewAgeAutomation/docs/market/lab-automation.md). This page recruits
+// conversations, it does not sell.
+const copy = {
+  sl: {
+    h1: 'Namizna avtomatizacija za mikrobiološke laboratorije',
+    lead: 'Razvijamo namizno celico za rokovanje s ploščami in vzorci v laboratorijih, za katere so obstoječi sistemi preveliki in predragi. Še ne prodajamo — zbiramo izkušnje.',
+    forH: 'Za koga',
+    for: 'Živilski, vodni in okoljski laboratoriji, farmacevtska kontrola kakovosti, veterinarski in raziskovalni laboratoriji. Ne-klinična uporaba.',
+    askH: 'Kaj iščemo',
+    ask: 'Dvajset minut vašega časa. Katera ročna opravila vzamejo največ ur, kaj bi moral sistem dokazati, da bi se smel dotakniti vaših vzorcev, in kaj bi bila smiselna cena. Če bi bili pripravljeni gostiti pilotni sistem, še toliko bolje.',
+    whyH: 'Zakaj mi',
+    why: 'Robotika in strojni vid na eni strani, mikrobiologinja v ekipi na drugi. Vse, kar zgradimo, je verzionirano in preizkušeno na digitalnem dvojčku — dokumentacija za akreditacijo nastaja sproti.',
+    cta: 'Pogovorimo se',
+  },
+  en: {
+    h1: 'Benchtop automation for microbiology labs',
+    lead: 'We are developing a benchtop cell for plate and sample handling in labs that existing systems are too big and too expensive for. We are not selling yet — we are learning.',
+    forH: 'Who it is for',
+    for: 'Food, water and environmental testing labs, pharma QC, veterinary and research labs. Non-clinical use.',
+    askH: 'What we are asking for',
+    ask: 'Twenty minutes of your time. Which manual tasks take the most hours, what a system would have to prove before it may touch your samples, and what a sensible price would be. If you would host a pilot system, even better.',
+    whyH: 'Why us',
+    why: 'Robotics and machine vision on one side, a microbiologist on the team on the other. Everything we build is version-controlled and tested against a digital twin — accreditation documentation is produced as we go.',
+    cta: 'Talk to us',
+  },
+}[lang];
+---
+<h1>{copy.h1}</h1>
+<p class="lead">{copy.lead}</p>
+<h2>{copy.forH}</h2><p>{copy.for}</p>
+<h2>{copy.askH}</h2><p>{copy.ask}</p>
+<h2>{copy.whyH}</h2><p>{copy.why}</p>
+<a class="cta" href={route(lang, 'contact')}>{copy.cta}</a>

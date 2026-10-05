@@ -1,0 +1,13 @@
+---
+import { render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+interface Props { lang: 'sl' | 'en'; note: CollectionEntry<'notes'> }
+const { lang, note } = Astro.props;
+const { Content } = await render(note);
+---
+<article>
+  <time datetime={note.data.date.toISOString()}>{note.data.date.toLocaleDateString(lang === 'sl' ? 'sl-SI' : 'en-GB')}</time>
+  <h1>{note.data.title}</h1>
+  <p class="lead">{note.data.description}</p>
+  <Content />
+</article>

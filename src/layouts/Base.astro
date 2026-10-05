@@ -1,0 +1,45 @@
+---
+import { brand } from '../brand.js';
+import { ui, route, altRoute, stripBase, withBase } from '../i18n.js';
+import '../styles/global.css';
+
+interface Props {
+  lang: 'sl' | 'en';
+  title: string;
+  description: string;
+}
+const { lang, title, description } = Astro.props;
+const t = ui[lang];
+const path = stripBase(Astro.url.pathname);
+const altPath = altRoute(lang, path);
+const keys = ['home', 'manufacturing', 'lab', 'notes', 'contact'] as const;
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · {brand.name}</title>
+    <meta name="description" content={description} />
+    <link rel="alternate" hreflang={lang === 'sl' ? 'en' : 'sl'} href={new URL(altPath, Astro.site)} />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+  </head>
+  <body>
+    <header class="wrap">
+      <a class="logo" href={route(lang, 'home')}>{brand.name}</a>
+      <nav>
+        {keys.map((k) => (
+          <a href={route(lang, k)} aria-current={stripBase(route(lang, k)) === path ? 'page' : undefined}>{t.nav[k]}</a>
+        ))}
+        <a class="lang" href={altPath} lang={lang === 'sl' ? 'en' : 'sl'}>{t.switch.label}</a>
+      </nav>
+    </header>
+    <main class="wrap">
+      <slot />
+    </main>
+    <footer class="wrap">
+      <p>© {new Date().getFullYear()} {brand.name} · {brand.location} · <a href={`mailto:${brand.email}`}>{brand.email}</a></p>
+      <p>{t.footer.rights} {t.footer.privacy}</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+---
+import { route } from '../i18n.js';
+interface Props { lang: 'sl' | 'en' }
+const { lang } = Astro.props;
+
+const copy = {
+  sl: {
+    h1: 'Avtomatizacijske celice, dostavljene kot programska oprema.',
+    lead: 'Gradimo in nadgrajujemo robotske celice za proizvodnjo in laboratorije. Vsaka sprememba je verzionirana, preizkušena na digitalnem dvojčku in nameščena v enem koraku — preden se dotakne vašega stroja.',
+    doors: [
+      { key: 'manufacturing', h: 'Proizvodnja', p: 'Virtualni zagon, krmilna koda pod nadzorom verzij, povezava OT in IT, namenske celice. Za proizvajalce strojev, integratorje in obrate.' },
+      { key: 'lab', h: 'Laboratorij', p: 'Namizna celica za rokovanje s ploščami in vzorci v mikrobioloških laboratorijih. V fazi preverjanja — pogovarjamo se z laboratoriji.' },
+    ],
+    howH: 'Kako delamo',
+    how: [
+      'Stroj ali celico najprej emuliramo. Logika se preizkusi, preden obstaja jeklo.',
+      'Vsa koda — PLC, robot, vid — živi v gitu. Vsaka sprememba je sledljiva in pregledana.',
+      'Namestitev je en korak in vedno jo lahko vrnemo nazaj.',
+      'Varnostne funkcije so vedno deterministične in jih potrdi človek. Brez izjem.',
+    ],
+    note: 'Ena oseba za robotiko, PLC, vid in programsko orodje; mreža izdelovalcev z lastno CNC delavnico za ogrodja, vpenjala in omare.',
+    cta: 'Pogovorimo se',
+  },
+  en: {
+    h1: 'Automation cells, delivered like software.',
+    lead: 'We build and retrofit robot cells for manufacturers and labs. Every change is version-controlled, tested against a digital twin and deployed in one step — before it touches your machine.',
+    doors: [
+      { key: 'manufacturing', h: 'Manufacturing', p: 'Virtual commissioning, PLC code under version control, OT/IT data integration, special-purpose cells. For machine builders, integrators and plants.' },
+      { key: 'lab', h: 'Lab', p: 'A benchtop cell for plate and sample handling in microbiology labs. In validation — we are talking to labs now.' },
+    ],
+    howH: 'How we work',
+    how: [
+      'We emulate the machine or cell first. Logic is tested before the steel exists.',
+      'All code — PLC, robot, vision — lives in git. Every change is traceable and reviewed.',
+      'Deployment is one step and always reversible.',
+      'Safety functions are deterministic and signed off by a human. No exceptions.',
+    ],
+    note: 'One engineer for robotics, PLC, vision and software tooling; a builder network with its own CNC shop for frames, fixtures and cabinets.',
+    cta: 'Talk to us',
+  },
+}[lang];
+---
+<h1>{copy.h1}</h1>
+<p class="lead">{copy.lead}</p>
+<div class="doors">
+  {copy.doors.map((d) => (
+    <a class="door" href={route(lang, d.key as 'manufacturing' | 'lab')}>
+      <h3>{d.h}</h3>
+      <p>{d.p}</p>
+    </a>
+  ))}
+</div>
+<h2>{copy.howH}</h2>
+<ol class="steps">{copy.how.map((s) => <li>{s}</li>)}</ol>
+<p class="note">{copy.note}</p>
+<a class="cta" href={route(lang, 'contact')}>{copy.cta}</a>

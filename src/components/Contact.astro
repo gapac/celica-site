@@ -1,0 +1,16 @@
+---
+import { brand } from '../brand.js';
+interface Props { lang: 'sl' | 'en' }
+const { lang } = Astro.props;
+
+// No form backend yet: a mailto keeps the site static and avoids storing
+// personal data on a server. Swap for a form service when volume justifies it.
+const copy = {
+  sl: { h1: 'Kontakt', p: 'Najhitreje po e-pošti. Odgovorimo v enem delovnem dnevu.', who: 'Odgovorna oseba' },
+  en: { h1: 'Contact', p: 'Email is fastest. We reply within one working day.', who: 'Contact person' },
+}[lang];
+---
+<h1>{copy.h1}</h1>
+<p class="lead">{copy.p}</p>
+<p><a class="cta" href={`mailto:${brand.email}`}>{brand.email}</a></p>
+<p>{copy.who}: {brand.founder}{brand.linkedin && <> · <a href={brand.linkedin}>LinkedIn</a></>}</p>
