@@ -1,10 +1,12 @@
-# Builds the Astro site and publishes it to GitHub Pages — MANUAL ONLY until the
-# founder decides to go live (Pages was disabled on 2026-10-05 by request).
-# To go live: enable Pages (Source: GitHub Actions), then run this workflow from
-# the Actions tab; re-add `push: branches: [main]` below for auto-deploys.
+# Builds the Astro site and publishes it to GitHub Pages on every push to main.
+# One-time setup in the repo: Settings -> Pages -> Source: "GitHub Actions".
+# Until that is done the deploy job fails with "Pages not enabled"; the build
+# job still runs, so the site is checked on every push either way.
 name: Deploy to GitHub Pages
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:

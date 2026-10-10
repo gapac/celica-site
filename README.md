@@ -23,10 +23,21 @@ just check       # = npm run build
 
 ## Going live
 
-1. Register `celicasystems.si` (brand is set in `src/brand.js`).
-2. Repo settings → Pages → Source: **GitHub Actions**. Push to `main`.
-3. Custom domain: add it under Pages, create the DNS records at the registrar,
-   add `public/CNAME` containing `celicasystems.si`.
+1. Repo settings → Pages → Source: **GitHub Actions**. Every push to `main` then
+   deploys to `https://gapac.github.io/celica-site/`.
+2. Register `celicasystems.si` (brand is set in `src/brand.js`).
+3. Custom domain, in this order:
+   1. DNS at the registrar: `A` records for the apex pointing at
+      `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+      (and the matching `AAAA` records `2606:50c0:8000::153` … `8003::153`), plus
+      `CNAME www -> gapac.github.io`.
+   2. GitHub → Settings → Pages → Verified domains: add `celicasystems.si` and
+      create the `TXT` record it shows. This stops anyone else from claiming the
+      domain on Pages.
+   3. Commit `public/CNAME` containing `celicasystems.si`. The workflow then
+      builds with the real URL and no `/celica-site/` base.
+   4. Settings → Pages → Custom domain: enter the domain, wait for the DNS check,
+      tick **Enforce HTTPS** once the certificate is issued (up to an hour).
 4. Set up email on the domain with SPF, DKIM and DMARC before sending outreach.
 
 No analytics, no cookies, no form backend by design. Add Plausible (or nothing)
